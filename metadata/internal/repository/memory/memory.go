@@ -3,24 +3,24 @@ package memory
 import (
 	"context"
 	"movieapp/metadata/internal/repository"
-	model "movieapp/metadata/pkg"
+	model "movieapp/metadata/pkg/model"
 	"sync"
 )
 
-//Repository defines a memory movie metadata repository.
+// Repository defines a memory movie metadata repository.
 type Repository struct {
 	sync.RWMutex
 	data map[string]*model.Metadata
 }
 
-//New creates a new memory repository.
+// New creates a new memory repository.
 func New() *Repository {
 	return &Repository{
 		data: map[string]*model.Metadata{},
 	}
 }
 
-//Get retrieves movie metadata by movie id.
+// Get retrieves movie metadata by movie id.
 func (r *Repository) Get(_ context.Context, id string) (*model.Metadata, error) {
 	r.RLock()
 	defer r.Unlock()
@@ -33,7 +33,7 @@ func (r *Repository) Get(_ context.Context, id string) (*model.Metadata, error) 
 	return m, nil
 }
 
-//Put adds movie metadata for a given movie id.
+// Put adds movie metadata for a given movie id.
 func (r *Repository) Put(_ context.Context, id string, metadata *model.Metadata) error {
 	r.Lock()
 	defer r.Unlock()
@@ -41,5 +41,3 @@ func (r *Repository) Put(_ context.Context, id string, metadata *model.Metadata)
 	r.data[id] = metadata
 	return nil
 }
-
-

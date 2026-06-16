@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 	"movieapp/metadata/internal/repository"
-	model "movieapp/metadata/pkg"
+	model "movieapp/metadata/pkg/model"
 )
 
 // ErrorNotFound is returned when a requested record is not found.
